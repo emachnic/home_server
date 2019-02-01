@@ -1,0 +1,74 @@
+version: "3"
+services:
+
+  transmission:
+    image: linuxserver/transmission
+    restart: unless-stopped
+    ports:
+      - "${TRANSMISSION_EXTERNAL_PORT}:9091"
+      - "${TRANSMISSION_PEER_PORT}:${TRANSMISSION_PEER_PORT}"
+      - "${TRANSMISSION_PEER_PORT}:${TRANSMISSION_PEER_PORT}/udp"
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TIMEZONE}
+    volumes:
+      - "${TRANSMISSION_CONFIG_PATH}:/config"
+      - "${TRANSMISSION_DOWNLOADS_PATH}:/complete"
+      - "${TRANSMISSION_WATCH_PATH}:/watch"
+
+  sonarr:
+    image: linuxserver/sonarr
+    restart: unless-stopped
+    ports:
+      - "${SONARR_EXTERNAL_PORT}:8989"
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TIMEZONE}
+    volumes:
+      - "${SONARR_CONFIG_PATH}:/config"
+      - "${TV_PATH}:/tv"
+      - "${TRANSMISSION_DOWNLOADS_PATH}:/complete"
+
+  radarr:
+    image: linuxserver/radarr
+    restart: unless-stopped
+    ports:
+      - "${RADARR_EXTERNAL_PORT}:7878"
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TIMEZONE}
+    volumes:
+      - "${RADARR_CONFIG_PATH}:/config"
+      - "${MOVIES_PATH}:/movies"
+      - "${TRANSMISSION_DOWNLOADS_PATH}:/complete"
+
+  jackett:
+    image: linuxserver/jackett
+    restart: unless-stopped
+    ports:
+      - "${JACKETT_EXTERNAL_PORT}:9117"
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TIMEZONE}
+    volumes:
+      - "${JACKETT_CONFIG_PATH}:/config"
+      - "${JACKETT_BLACKHOLE_PATH}:/downloads"
+
+  plex:
+    image: linuxserver/plex
+    restart: unless-stopped
+    network_mode: "host"
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      VERSION: latest
+      TZ: ${TIMEZONE}
+    volumes:
+      - "${PLEX_CONFIG_PATH}:/config"
+      - "${PLEX_TRANSCODING_PATH}:/transcode"
+      - "${MOVIES_PATH}:/data/movies"
+      - "${TV_PATH}:/data/tv"
