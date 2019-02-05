@@ -62,7 +62,7 @@ services:
     image: linuxserver/lidarr
     restart: unless-stopped
     ports:
-      - "${LIDARR_EXTERNAL_PORT}:7878"
+      - "${LIDARR_EXTERNAL_PORT}:8686"
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
