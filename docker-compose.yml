@@ -58,7 +58,7 @@ services:
       - "${JACKETT_CONFIG_PATH}:/config"
       - "${JACKETT_BLACKHOLE_PATH}:/downloads"
 
-  radarr:
+  lidarr:
     image: linuxserver/lidarr
     restart: unless-stopped
     ports:
