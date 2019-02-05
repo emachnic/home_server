@@ -58,6 +58,20 @@ services:
       - "${JACKETT_CONFIG_PATH}:/config"
       - "${JACKETT_BLACKHOLE_PATH}:/downloads"
 
+  radarr:
+    image: linuxserver/lidarr
+    restart: unless-stopped
+    ports:
+      - "${LIDARR_EXTERNAL_PORT}:7878"
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TIMEZONE}
+    volumes:
+      - "${LIDARR_CONFIG_PATH}:/config"
+      - "${MUSIC_PATH}:/music"
+      - "${TRANSMISSION_DOWNLOADS_PATH}:/complete"
+
   plex:
     image: linuxserver/plex
     restart: unless-stopped
