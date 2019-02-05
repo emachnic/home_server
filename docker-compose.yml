@@ -86,3 +86,4 @@ services:
       - "${PLEX_TRANSCODING_PATH}:/transcode"
       - "${MOVIES_PATH}:/data/movies"
       - "${TV_PATH}:/data/tv"
+      - "${MUSIC_PATH}:/data/music"
