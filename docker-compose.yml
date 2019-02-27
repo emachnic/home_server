@@ -87,3 +87,15 @@ services:
       - "${MOVIES_PATH}:/data/movies"
       - "${TV_PATH}:/data/tv"
       - "${MUSIC_PATH}:/data/music"
+
+  duckdns:
+    image: linuxserver/duckdns
+    restart: unless-stopped
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TIMEZONE}
+      SUBDOMAINS: ${DUCKDNS_SUBDOMAIN}
+      TOKEN: ${DUCKDNS_TOKEN}
+    volumes:
+      - "${DUCKDNS_CONFIG_PATH}:/config"

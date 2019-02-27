@@ -39,3 +39,8 @@ connect to the Jackett endpoint for the searching.
 
 [Plex](https://www.plex.tv) will be your interface for actually playing the
 media that you're managing via the previously-listed components.
+
+### Duck DNS
+
+[Duck DNS](https://www.duckdns.org) is a free service which will point a DNS
+(sub domains of duckdns.org) to an IP of your choice
