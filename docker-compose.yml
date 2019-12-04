@@ -108,3 +108,11 @@ services:
       TOKEN: ${DUCKDNS_TOKEN}
     volumes:
       - "${DUCKDNS_CONFIG_PATH}:/config"
+
+  certbot:
+    image: certbot/certbot
+    restart: unless-stopped
+    volumes:
+      - "${CERTBOT_CONFIG_PATH}:/etc/letsencrypt"
+      - "${CERTBOT_LIB_PATH}:/var/lib/letsencrypt"
+    command: certonly
