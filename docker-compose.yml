@@ -88,6 +88,15 @@ services:
       - "${TV_PATH}:/data/tv"
       - "${MUSIC_PATH}:/data/music"
 
+  homeassistant:
+    image: homeassitant/home-assistant
+    restart: unless-stopped
+    network_mode: "host"
+    environment:
+      TZ: ${TIMEZONE}
+    volumes:
+      - "${HASS_CONFIG_PATH}:/config"
+
   duckdns:
     image: linuxserver/duckdns
     restart: unless-stopped
