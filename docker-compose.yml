@@ -89,7 +89,7 @@ services:
       - "${MUSIC_PATH}:/data/music"
 
   homeassistant:
-    image: homeassitant/home-assistant
+    image: homeassistant/home-assistant
     restart: unless-stopped
     network_mode: "host"
     environment:
