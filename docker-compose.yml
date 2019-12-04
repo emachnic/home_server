@@ -112,6 +112,9 @@ services:
   certbot:
     image: certbot/certbot
     restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
     volumes:
       - "${CERTBOT_CONFIG_PATH}:/etc/letsencrypt"
       - "${CERTBOT_LIB_PATH}:/var/lib/letsencrypt"
